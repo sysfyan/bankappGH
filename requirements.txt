@@ -1,0 +1,5 @@
+Flask
+PyPDF2
+pandas
+nltk
+fuzzywuzzy

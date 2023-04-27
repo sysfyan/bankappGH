@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        Tableau de bord
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">Mes comptes</a>
+                    <a href="#" class="list-group-item list-group-item-action active">Mes fichiers</a>
+                    <a href="#" class="list-group-item list-group-item-action">Paramètres</a>
+                </div>
+            </div>
+            <div class="col-10">
+                <h1>Mes fichiers</h1>
+                <form id="upload-form" method="POST" enctype="multipart/form-data" action="{{ url_for('upload_file') }}">
+                    <div class="mb-3">
+                       <input class="form-control" type="file" name="file" id="file" placeholder=" ">
+                    </div>
+                    <button id="submit-btn" type="submit" class="btn btn-primary">Ajouter</button>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date </th>
+                            <th>Nom </th>
+                            <th>Poids</th>
+                            <th>Type </th>
+                            <th>Status</th>
+							<th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                            <tr>
+                                <td>{{ file.upload_date.strftime('%d/%m/%Y - %H:%M') }}</td>
+                                <td>
+                                    <a href="{{ url_for('download_file', file_id=file.id) }}">{{ file.filename }}</a>
+                                </td>
+                                <td>{{ '%.2f' % (file.size / (1024 * 1024)) }} Mo</td>
+                                <td>{{ file.content_type }}</td>
+                                <td>
+                                    {% if file.status == 1 %}
+                                        <span class="badge bg-danger">KO</span>
+                                    {% endif %}
+                                </td>
+								 <td> <!-- Nouvelle colonne -->
+								   <select class="form-select">
+									<option value="">Actions</option>
+									<option value="1">Supprimer</option>
+									<option value="2">Renommer</option>
+								   </select>
+								 </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

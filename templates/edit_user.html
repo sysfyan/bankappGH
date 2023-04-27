@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Modifier les informations de l'utilisateur</h1>
+    <form method="POST" action="{{ url_for('edit_user', user_id=user_id) }}">
+        {{ form.csrf_token }}
+        <label for="username">Nom d'utilisateur :</label>
+        {{ form.username }}
+        <br>
+        <label for="email">Email :</label>
+        {{ form.email }}
+        <br>
+        <label for="is_admin">Administrateur :</label>
+        {{ form.is_admin }}
+        <br>
+        {{ form.submit }}
+    </form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                        Tableau de bord
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">Mes comptes</a>
+                  	<a href="{{ url_for('myfiles') }}" class="list-group-item list-group-item-action">Mes fichiers</a>
+                    <a href="#" class="list-group-item list-group-item-action">Paramètres</a>
+                </div>
+            </div>
+            <div class="col-8">
+                <h1>Mon compte bancaire</h1>
+                <p>Bienvenue, {{ current_user.username }} !</p>
+                <p>Votre solde actuel est de {{ current_user.balance }} €.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
